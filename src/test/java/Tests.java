@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.lessThan;
 
 public class Tests {
     @ParameterizedTest
-    @ValueSource(strings = {"100000;13;6;17304", "5000000;11;120;68875"})
+    @ValueSource(strings = {"100000;13;6;17304.29", "5000000;11;120;68875.01"})
     public void MonthlyPaymentTest(String params){
         // given:
         String[] param = params.split(";");
@@ -18,11 +18,11 @@ public class Tests {
         // when:
         double monthlyPayment = Calc.MonthlyPayment(residualAmount, rate, paymentsRemaining);
         // then:
-        assertThat(Math.abs(monthlyPayment - result), lessThan(0.001));
+        assertThat(Math.abs(monthlyPayment - result), lessThan(0.009));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"100000;13;6;103824", "5000000;11;120;8265000"})
+    @ValueSource(strings = {"100000;13;6;103825.71", "5000000;11;120;8265000.68"})
     public void FullRefundSumTest(String params){
         // given:
         String[] param = params.split(";");
@@ -33,11 +33,11 @@ public class Tests {
         // when:
         double frs = Calc.FullRefundSum(creditSum, rate, months);
         // then:
-        assertThat(Math.abs(frs - result), lessThan(0.001));
+        assertThat(Math.abs(frs - result), lessThan(0.009));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"100000;13;6;3824", "5000000;11;120;3265000"})
+    @ValueSource(strings = {"100000;13;6;3825.71", "5000000;11;120;3265000.68"})
     public void OverpaymentTest(String params){
         // given:
         String[] param = params.split(";");
@@ -48,6 +48,6 @@ public class Tests {
         // when:
         double op = Calc.Overpayment(creditSum, rate, months);
         // then:
-        assertThat(Math.abs(op - result), lessThan(0.001));
+        assertThat(Math.abs(op - result), lessThan(0.009));
     }
 }
