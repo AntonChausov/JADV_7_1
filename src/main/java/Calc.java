@@ -1,13 +1,16 @@
 public class Calc {
-    public double MonthlyPayment(double residualAmount, double rate, int paymentsRemaining) {
-        return 0;
+    public static double MonthlyPayment(double residualAmount, double rate, int paymentsRemaining) {
+        double monthRate = rate / (100 * 12);
+        return residualAmount * (monthRate / (1 - Math.pow(1 + monthRate, (-paymentsRemaining))));
     }
 
-    public double FullRefundSum(double creditSum, double rate, int months){
-        return 0;
+    public static double FullRefundSum(double creditSum, double rate, int months){
+        double mp = MonthlyPayment(creditSum, rate, months);
+        return mp * months;
     }
 
-    public double Overpayment(double creditSum, double rate, int months){
-        return 0;
+    public static double Overpayment(double creditSum, double rate, int months){
+        double frs = FullRefundSum(creditSum, rate, months);
+        return (frs - creditSum);
     }
 }
